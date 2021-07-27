@@ -29,25 +29,31 @@ class GroupController extends Controller
             [
                 'user_id' => '1', //temp data
                 'name' => $request->name,
-                'description' => $request->description,
-                'image' => $this->uploadImage($request)
             ]
         );
         return response()->json(
             [
                 'message' => 'create',
-            ], 201);
+            ],);
     }
 
     public function update(Request $request,Group  $group)
     {
-        $group= Group::findorfail($group);
-        $group->update($request->all());
+        $group= $group->update($request->all());
+
         return response()->json(
             [
                 'message' => 'updated'
-            ],
-        202);
+            ],);
+    }
+    public function destroy(Request $request,Group  $group)
+    {
+        $group->delete();
+
+        return response()->json(
+            [
+                'message' => 'deleted'
+            ],);
     }
 
     private function validateGroup(Request $request)
