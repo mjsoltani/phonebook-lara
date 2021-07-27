@@ -18,7 +18,7 @@ class GroupResource extends JsonResource
         [
             'id' => $this->id,
             'name'=> $this->name,
-            'user_id'=> $this->users,
+            'user_id'=> $this->user_id,
             $this->mergeWhen($request->with_contact==="true",
             [
                 'contact'=>new ContactResource($this->contact)

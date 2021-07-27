@@ -24,7 +24,11 @@ Route::group(['prefix' => 'v1'], function ()
     //group
     Route::group(['prefix' => 'groups'], function ()
     {
-        Route::post('{group}', [GroupController::class, 'show']);
+        //return a group
         Route::get('{group}', [GroupController::class, 'show']);
+        //return all group
+        Route::get('', [GroupController::class, 'index']);
+        //create a group
+        Route::post('',[GroupController::class, 'store']);
     });
 });

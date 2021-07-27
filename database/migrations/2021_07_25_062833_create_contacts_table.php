@@ -18,6 +18,8 @@ class CreateContactsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone',11);
+            $table->text('description');
+            $table->string('image');
             $table->boolean('is_admin');
             $table->timestamps();
         });
