@@ -39,20 +39,25 @@ class GroupController extends Controller
             ], 201);
     }
 
+    public function update(Request $request,Group  $group)
+    {
+        $group= Group::findorfail($group);
+        $group->update($request->all());
+        return response()->json(
+            [
+                'message' => 'updated'
+            ],
+        202);
+    }
+
     private function validateGroup(Request $request)
     {
         $request->validate(
             [
                 'name' => 'required|string',
-                'image' => 'required'
             ]
         );
     }
 
-    private function uploadImage($request)
-    {
-        return $request->hasfile('image')
-            ? $request->image->store('public')
-            : null;
-    }
+
 }
