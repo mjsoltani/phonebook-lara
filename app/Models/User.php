@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class User extends Authenticatable
 {
@@ -43,6 +44,6 @@ class User extends Authenticatable
 
     public function groups()
     {
-        return $this->hasMany(Groups::class);
+        return $this->hasMany(Group::class);
     }
 }

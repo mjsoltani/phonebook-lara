@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class contacts extends Model
 {
     use HasFactory;
+    protected $fillable = ['name','phone','is_admin'];
 
     public function groups()
     {

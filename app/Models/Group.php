@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 
-class groups extends Model
+
+class Group extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'user_id'];

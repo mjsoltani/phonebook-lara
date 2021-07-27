@@ -22,12 +22,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function () {
 
     //group
-    Route::group(['prefix' => 'group'], function ()
+    Route::group(['prefix' => 'groups'], function ()
     {
-        //contacts
-        Route::post('{id}/contact', [GroupController::class, 'create']);
-        Route::get('{id}/contact', [ContactController::class, 'index']);
-        Route::put('{id}/contact/{id}', [ContactController::class, 'update']);
-        Route::delete('{id}/contact/{id}', [ContactController::class, 'destroy']);
+        Route::post('{group}', [GroupController::class, 'show']);
+        Route::get('{group}', [GroupController::class, 'show']);
     });
 });
