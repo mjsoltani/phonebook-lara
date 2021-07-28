@@ -53,7 +53,7 @@ class GroupController extends Controller
         return response()->json(
             [
                 'message' => 'deleted'
-            ],);
+            ]);
     }
 
     private function validateGroup(Request $request)

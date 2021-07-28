@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ContactResource;
+use App\Models\contact;
 use App\Models\contacts;
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,84 +14,69 @@ class ContactController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param contact $contact
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): \Illuminate\Http\JsonResponse
     {
-        $contacts = contacts::query()->paginate(15);
-        return response()->json($contacts, 200);
+        return response()->json( 200);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function create()
+    public function create(Contact $contact)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
+        $contact->create();
+        return response()->json('created');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return ContactResource
      */
-    public function show($id)
+    public function show(contact $contact)
     {
-        //
+        return new ContactResource($contact);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Contact $contact)
     {
-        $user =contacts::findOrFail($id);
-        $user->update($request->all());
-        return response()->json(['message' =>'updated'],200);
+        $contact->update();
+        return response()->json(['message' =>'updated']);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
+     * @param contact $contact
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Contact $contact)
     {
-        contacts::query()->findOrFail($id)->delete();
+        $contact->delete();
         return response()->json(['message'=>'deleted'],200);
     }
-    private function validateUser(Request $request)
+    private function validateContact(Request $request)
     {
-        $request->validate([]);
+        $request->validate([
+            'name'=>'required',
+            'phone'=>'required'
+        ]);
+    }
+    public function getContactofgroup(Group $group)
+    {
+        $group->contacts()->create();
+        return  ContactResource::collection($group->contacts);
+
     }
 }

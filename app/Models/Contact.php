@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class contact extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','phone','is_admin'];
+    protected $fillable = ['name','phone','is_admin','image'];
 
     public function groups()
     {

@@ -19,7 +19,11 @@ class ContactResource extends JsonResource
                 'id'=> $this->id,
                 'name'=> $this->name,
                 'phone'=> $this->phone,
-                'is_admin'=> $this->is_admin
+                'is_admin'=> $this->is_admin,
+                $this->mergeWhen($request->with_contact==="true",
+                    [
+                        'contact'=>new ContactResource($this->contact)
+                    ])
             ];
     }
 }

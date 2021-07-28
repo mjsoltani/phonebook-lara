@@ -18,6 +18,6 @@ class Group extends Model
 
     public function contacts()
     {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsToMany(Contact::class, 'contacts_groups');
     }
 }

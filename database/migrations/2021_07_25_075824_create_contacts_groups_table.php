@@ -18,6 +18,8 @@ class CreateContactsGroupsTable extends Migration
             $table->unsignedBigInteger('contact_id');
             $table->unsignedBigInteger('group_id');
             $table->timestamps();
+            $table->foreign('contact_id')->on('contacts')->references('id')->onDelete('Cascade');
+            $table->foreign('group_id')->on('groups')->references('id')->onDelete('Cascade');
         });
     }
 
