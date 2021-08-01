@@ -75,8 +75,9 @@ class ContactController extends Controller
     }
     public function getContactofgroup(Group $group)
     {
-        $group->contacts()->create();
+
         return  ContactResource::collection($group->contacts);
 
     }
+
 }

@@ -14,7 +14,7 @@ class GroupController extends Controller
     {
         $groups= Group::paginate(20);
         $resource = GroupResource::collection($groups);
-        return response()->json($resource, 200);
+        return response()->json($resource);
     }
     public function show(Group $group)
     {
@@ -24,36 +24,40 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $this->validateGroup($request);
-        Group::create
+        $group = new Group();
+         $group->user_id = 1;
+         $group->name =  $request->name ;
+         $group->save();
+
+         $group->contacts()->createMany($request->contact_id);
+
+        return response()->json
         (
             [
-                'user_id' => '1', //temp data
-                'name' => $request->name,
+                'message' => 'create',
             ]
         );
-        return response()->json(
-            [
-                'message' => 'create',
-            ],);
     }
 
     public function update(Request $request,Group  $group)
     {
         $group= $group->update($request->all());
-
-        return response()->json(
+        return response()->json
+        (
             [
                 'message' => 'updated'
-            ],);
+            ]
+        );
     }
     public function destroy(Request $request,Group  $group)
     {
         $group->delete();
-
-        return response()->json(
+        return response()->json
+        (
             [
                 'message' => 'deleted'
-            ]);
+            ]
+        );
     }
 
     private function validateGroup(Request $request)
@@ -61,6 +65,7 @@ class GroupController extends Controller
         $request->validate(
             [
                 'name' => 'required|string',
+                'contact_id'=> 'required|array'
             ]
         );
     }
