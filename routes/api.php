@@ -46,10 +46,10 @@ Route::group(['prefix' => 'v1'], function ()
              * create one
              */
             Route::get('{group}/contacts/{contact}', [ContactController::class, 'show']);
-            Route::get('{group}/contact', [ContactController::class, 'getContactofgroup']);
-            Route::put('{group}/{contact}', [ContactController::class, 'update']);
-            Route::delete('{group}/{contact}', [ContactController::class, 'destroy']);
-            Route::post('{group}/contact',[ContactController::class, 'create']);
+            Route::get('{group}/contacts', [ContactController::class, 'getContactofgroup']);
+            Route::put('{group}/contacts/{contact}', [ContactController::class, 'update']);
+            Route::delete('{group}/contacts/{contact}', [ContactController::class, 'destroy']);
+            Route::post('{group}/contacts',[ContactController::class, 'create']);
 
     });
 });
