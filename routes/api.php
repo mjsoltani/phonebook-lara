@@ -45,7 +45,7 @@ Route::group(['prefix' => 'v1'], function ()
              * delete one
              * create one
              */
-            Route::get('{group}/{contact}', [ContactController::class, 'show']);
+            Route::get('{group}/contacts/{contact}', [ContactController::class, 'show']);
             Route::get('{group}/contact', [ContactController::class, 'getContactofgroup']);
             Route::put('{group}/{contact}', [ContactController::class, 'update']);
             Route::delete('{group}/{contact}', [ContactController::class, 'destroy']);

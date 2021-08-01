@@ -22,7 +22,7 @@ class ContactResource extends JsonResource
                 'is_admin'=> $this->is_admin,
                 $this->mergeWhen($request->with_contact==="true",
                     [
-                        'contact'=>new ContactResource($this->contact)
+                        'group'=> GroupResource::collection($this->groups)
                     ])
             ];
     }

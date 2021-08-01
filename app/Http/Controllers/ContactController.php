@@ -80,7 +80,7 @@ class ContactController extends Controller
             'is_admin'=>'required|boolean'
         ]);
     }
-    private function getContactofgroup(Group $group)
+    public function getContactofgroup(Group $group)
     {
 
         return  ContactResource::collection($group->contacts);
