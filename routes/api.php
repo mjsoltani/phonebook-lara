@@ -24,28 +24,32 @@ Route::group(['prefix' => 'v1'], function ()
     //group
     Route::group(['prefix' => 'groups'], function ()
     {
-        //return a group
+        /* all things about group
+         * return one
+         * return all
+         * update one
+         * delete one
+         * store one
+         */
         Route::get('{group}', [GroupController::class, 'show']);
-        //return all groups
         Route::get('', [GroupController::class, 'index']);
-        //update the group
         Route::put('{group}', [GroupController::class, 'update']);
-        //delete the group
         Route::delete('{group}', [GroupController::class, 'destroy']);
-        //create a group
         Route::post('',[GroupController::class, 'store']);
 
-
-            //return a contact
-            Route::get('{contact}', [ContactController::class, 'show']);
-            //return all contacts
+            /*
+             * all things about the contact
+             * return one
+             * return all
+             * update one
+             * delete one
+             * create one
+             */
+            Route::get('{group}/{contact}', [ContactController::class, 'show']);
             Route::get('{group}/contact', [ContactController::class, 'getContactofgroup']);
-            //update the group
-            Route::put('{contact}', [ContactController::class, 'update']);
-            //delete the group
-            Route::delete('{contact}', [ContactController::class, 'destroy']);
-            //create a group
-            Route::post('{contact}',[ContactController::class, 'create']);
+            Route::put('{group}/{contact}', [ContactController::class, 'update']);
+            Route::delete('{group}/{contact}', [ContactController::class, 'destroy']);
+            Route::post('{group}/contact',[ContactController::class, 'create']);
 
     });
 });

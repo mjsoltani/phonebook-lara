@@ -25,11 +25,11 @@ class GroupController extends Controller
     {
         $this->validateGroup($request);
         $group = new Group();
-         $group->user_id = 1;
-         $group->name =  $request->name ;
-         $group->save();
+        $group->user_id = 1;
+        $group->name =  $request->name ;
+        $group->save();
 
-         $group->contacts()->createMany($request->contact_id);
+        $group->contacts()->createMany($request->contact_id);
 
         return response()->json
         (
@@ -49,7 +49,7 @@ class GroupController extends Controller
             ]
         );
     }
-    public function destroy(Request $request,Group  $group)
+    public function destroy(Group  $group)
     {
         $group->delete();
         return response()->json

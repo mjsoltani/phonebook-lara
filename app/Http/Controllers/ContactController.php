@@ -12,33 +12,36 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param contact $contact
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index(): \Illuminate\Http\JsonResponse
-    {
-        return response()->json( 200);
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
+     * @param contact $contact
+     * @param Group $group
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Contact $contact)
+    public function create(Request $request,Contact $contact, Group $group)
     {
-        $contact->create();
+        $this->validateContact($request);
+        $contact->create(
+            [
+                'name'=> $request->name,
+                'phone'=> $request->phone,
+                'description'=> $request->description,
+                'image'=> $request->image,
+                'is_admin'=> $request->is_admin,
+            ]
+        );
         return response()->json('created');
     }
 
     /**
      * Display the specified resource.
      *
+     * @param Group $group
+     * @param contact $contact
      * @return ContactResource
      */
-    public function show(contact $contact)
+    public function show(Group $group,contact $contact)
     {
         return new ContactResource($contact);
     }
@@ -47,10 +50,12 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     * @param contact $contact
+     * @param Group $group
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Contact $contact)
+    public function update(Request $request, Contact $contact, Group $group)
     {
         $contact->update();
         return response()->json(['message' =>'updated']);
@@ -61,23 +66,27 @@ class ContactController extends Controller
      * @param contact $contact
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Contact $contact)
+    public function destroy(Group $group,Contact $contact)
     {
         $contact->delete();
-        return response()->json(['message'=>'deleted'],200);
+        return response()->json(['message'=>'deleted']);
     }
     private function validateContact(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'phone'=>'required'
+            'name'=>'required|string',
+            'phone'=>'required|string',
+            'image'=>'required',
+            'is_admin'=>'required|boolean'
         ]);
     }
-    public function getContactofgroup(Group $group)
+    private function getContactofgroup(Group $group)
     {
 
         return  ContactResource::collection($group->contacts);
 
     }
+
+
 
 }
