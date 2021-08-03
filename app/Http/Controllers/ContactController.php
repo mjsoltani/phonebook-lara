@@ -19,16 +19,16 @@ class ContactController extends Controller
      * @param Group $group
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request,Contact $contact, Group $group)
+    public function create(Request $request, Contact $contact, Group $group)
     {
         $this->validateContact($request);
         $contact->create(
             [
-                'name'=> $request->name,
-                'phone'=> $request->phone,
-                'description'=> $request->description,
-                'image'=> $request->image,
-                'is_admin'=> $request->is_admin,
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'description' => $request->description,
+                'image' => $this->uploadImage($request),
+                'is_admin' => $request->is_admin,
             ]
         );
         return response()->json('created');
@@ -41,7 +41,7 @@ class ContactController extends Controller
      * @param contact $contact
      * @return ContactResource
      */
-    public function show(Group $group,contact $contact)
+    public function show(Group $group, contact $contact)
     {
         return new ContactResource($contact);
     }
@@ -58,7 +58,7 @@ class ContactController extends Controller
     public function update(Request $request, Contact $contact, Group $group)
     {
         $contact->update();
-        return response()->json(['message' =>'updated']);
+        return response()->json(['message' => 'updated']);
     }
 
     /**
@@ -66,27 +66,33 @@ class ContactController extends Controller
      * @param contact $contact
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Group $group,Contact $contact)
+    public function destroy(Group $group, Contact $contact)
     {
         $contact->delete();
-        return response()->json(['message'=>'deleted']);
+        return response()->json(['message' => 'deleted']);
     }
+
     private function validateContact(Request $request)
     {
         $request->validate([
-            'name'=>'required|string',
-            'phone'=>'required|string',
-            'image'=>'required',
-            'is_admin'=>'required|boolean'
+            'name' => 'required|string',
+            'phone' => 'required|string',
+            'image' => 'required',
+            'is_admin' => 'required|boolean'
         ]);
     }
+
     public function getContactofgroup(Group $group)
     {
 
-        return  ContactResource::collection($group->contacts);
+        return ContactResource::collection($group->contacts);
 
     }
 
-
-
+    private function uploadImage($request)
+    {
+        return $request->hasfile('image')
+            ? $request->image->store('public')
+            :null;
+    }
 }
