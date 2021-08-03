@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Carbon\Exceptions\InvalidIntervalException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,8 +37,7 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        $this->reportable(function (Throwable $e, $request) {});
+
     }
 }

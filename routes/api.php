@@ -36,7 +36,6 @@ Route::group(['prefix' => 'v1'], function ()
         Route::put('{group}', [GroupController::class, 'update']);
         Route::delete('{group}', [GroupController::class, 'destroy']);
         Route::post('',[GroupController::class, 'store']);
-
             /*
              * all things about the contact
              * return one
