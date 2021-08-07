@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin'
     ];
 
     /**
@@ -45,5 +46,20 @@ class User extends Authenticatable
     public function groups()
     {
         return $this->hasMany(Group::class);
+    }
+
+    public function generateToken()
+    {
+        $token = str_random(25);
+        $this->api_token = $token;
+        $this->save();
+        return $token;
+    }
+
+    public function logout()
+    {
+        $user = auth()->user();
+        $user->logout();
+        return $user;
     }
 }

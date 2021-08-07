@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatRequst;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class userController extends Controller
 {
     public function index()
     {
-        $user = User::all();
-        return $user;
+//        $user = User::all();
+        $checkAuth = Auth::guard()->user();
+        return $checkAuth;
+//        return $user;
     }
 
     public function show(Request $request, $user)
@@ -22,10 +25,11 @@ class userController extends Controller
 
     public function create(CreatRequst $request)
     {
-        User::query()->create([
+         $user= User::create([
             'name'=> $request->name,
             'email'=> $request->email,
             'password'=>$request->password,
+             'is_admin'=>$request->is_admin
         ]);
         return response()->json('created');
     }

@@ -26,7 +26,8 @@ class CreatRequst extends FormRequest
         return [
             'name' => 'required|min:6|max:50',
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'is_admin' => 'required'
         ];
     }
 }

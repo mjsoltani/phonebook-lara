@@ -32,8 +32,7 @@ Route::group(['prefix' => 'v1'], function () {
          */
         route::get('', [userController::class, 'index']);
         route::get('show/{user}', [userController::class, 'show']);
-        route::post('login', [userController::class, 'login']);
-        route::post('create', [userController::class, 'create']);
+        route::post('', [userController::class, 'create']);
         route::put('{user}', [userController::class, 'edit']);
         route::delete('{user}', [userController::class, 'delete']);
 
