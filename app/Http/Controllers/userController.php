@@ -40,7 +40,7 @@ class userController extends Controller
         $data = $request->all();
         $user->update($data);
         //response
-        return response()->json('created');
+        return response()->json('edited');
     }
 
     public function delete($user)
