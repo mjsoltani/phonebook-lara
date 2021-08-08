@@ -11,10 +11,8 @@ class userController extends Controller
 {
     public function index()
     {
-//        $user = User::all();
-        $checkAuth = Auth::guard()->user();
-        return $checkAuth;
-//        return $user;
+        $user = User::all();
+        return $user;
     }
 
     public function show(Request $request, $user)
