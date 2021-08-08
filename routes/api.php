@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\userController;
@@ -32,10 +33,12 @@ Route::group(['prefix' => 'v1'], function () {
          */
         route::get('', [userController::class, 'index']);
         route::get('show/{user}', [userController::class, 'show']);
-        route::post('', [userController::class, 'create']);
-        route::put('{user}', [userController::class, 'edit']);
-        route::delete('{user}', [userController::class, 'delete']);
+        route::post('', [userController::class, 'create'])->middleware('admin');
+        route::put('{user}', [userController::class, 'edit'])->middleware('admin');
+        route::delete('{user}', [userController::class, 'delete'])->middleware('admin');
 
+        route::post('login', [AuthController::class, 'login']);
+        route::post('logout', [AuthController::class, 'logout']);
 
 
             /* all things about group
