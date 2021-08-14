@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\GroupCollection;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
+use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
 
@@ -21,15 +22,22 @@ class GroupController extends Controller
         return new GroupResource($group);
     }
 
-    public function store(Request $request)
+    public function store(User $user,Request $request)
     {
         $this->validateGroup($request);
         $group = new Group();
-        $group->user_id = 10;
-        $group->name =  $request->name ;
+        $group->user_id = $user->id;
+        $group->name =  $request->name;
         $group->save();
+        $contact_id = [];
+        foreach ($request->contact_id as $contact)
+        {
+            $contact_id[] = $contact;
+        }
 
-        $group->contacts()->createMany($request->contact_id);
+        $group->contacts()->attach($contact_id);
+
+//        $group->contacts()->createMany($request->contact_id);
 
         return response()->json
         (

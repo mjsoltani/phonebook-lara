@@ -48,11 +48,11 @@ Route::group(['prefix' => 'v1'], function () {
              * delete one
              * store one
              */
-            Route::get('{user_id}/groups/{group}', [GroupController::class, 'show']);
-            Route::get('{user_id}/groups', [GroupController::class, 'index']);
-            Route::put('{user_id}/groups/{group}', [GroupController::class, 'update']);
-            Route::delete('{user_id}/groups/{group}', [GroupController::class, 'destroy']);
-            Route::post('{user_id}/groups', [GroupController::class, 'store']);
+            Route::get('{user}/groups/{group}', [GroupController::class, 'show']);
+            Route::get('{user}/groups', [GroupController::class, 'index']);
+            Route::put('{user}/groups/{group}', [GroupController::class, 'update']);
+            Route::delete('{user}/groups/{group}', [GroupController::class, 'destroy']);
+            Route::post('{user}/groups', [GroupController::class, 'store']);
             /*
              * all things about the contact
              * return one
@@ -61,10 +61,10 @@ Route::group(['prefix' => 'v1'], function () {
              * delete one
              * create one
              */
-            Route::get('{user_id}/groups/{group}/contacts/{contact}', [ContactController::class, 'show']);
-            Route::get('{user_id}/groups/{group}/contacts', [ContactController::class, 'getContactofgroup']);
-            Route::put('{user_id}/groups/{group}/contacts/{contact}', [ContactController::class, 'update']);
-            Route::delete('{user_id}/groups/{group}/contacts/{contact}', [ContactController::class, 'destroy']);
-            Route::post('{user_id}/groups/{group}/contacts', [ContactController::class, 'create']);
+            Route::get('{user}/groups/{group}/contacts/{contact}', [ContactController::class, 'show']);
+            Route::get('{user}/groups/{group}/contacts', [ContactController::class, 'getContactofgroup']);
+            Route::put('{user}/groups/{group}/contacts/{contact}', [ContactController::class, 'update']);
+            Route::delete('{user}/groups/{group}/contacts/{contact}', [ContactController::class, 'destroy']);
+            Route::post('{user}/groups/{group}/contacts', [ContactController::class, 'create']);
     });
 });
