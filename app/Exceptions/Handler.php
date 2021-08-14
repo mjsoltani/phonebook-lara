@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Carbon\Exceptions\InvalidIntervalException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Mockery\Exception\InvalidOrderException;
+use PHPUnit\Util\Exception;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Throwable;
@@ -37,6 +39,8 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e, $request) {});
+        $this->reportable(function (InvalidOrderException $e, $request) {
+            return $e;
+        });
     }
 }

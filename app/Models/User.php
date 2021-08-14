@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class User extends Authenticatable
@@ -50,8 +51,8 @@ class User extends Authenticatable
 
     public function generateToken()
     {
-        $token = str_random(25);
-        $this->api_token = $token;
+        $token = Str::random(25);
+        $this->remember_token = $token;
         $this->save();
         return $token;
     }

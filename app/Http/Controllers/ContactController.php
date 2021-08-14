@@ -78,7 +78,6 @@ class ContactController extends Controller
             'name' => 'required|string',
             'phone' => 'required|string',
             'image' => 'required',
-            'is_admin' => 'required|boolean'
         ]);
     }
 

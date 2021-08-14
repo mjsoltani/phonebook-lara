@@ -25,7 +25,7 @@ class GroupController extends Controller
     {
         $this->validateGroup($request);
         $group = new Group();
-        $group->user_id = 1;
+        $group->user_id = 10;
         $group->name =  $request->name ;
         $group->save();
 

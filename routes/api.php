@@ -33,7 +33,7 @@ Route::group(['prefix' => 'v1'], function () {
          */
         route::get('', [userController::class, 'index']);
         route::get('show/{user}', [userController::class, 'show']);
-        route::post('', [userController::class, 'create'])->middleware('admin');
+        route::post('', [userController::class, 'create']);
         route::put('{user}', [userController::class, 'edit'])->middleware('admin');
         route::delete('{user}', [userController::class, 'delete'])->middleware('admin');
 

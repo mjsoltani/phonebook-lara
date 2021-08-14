@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class Authcontroller extends Controller
 {
-    public function login(LoginRequest $request)
+    public function login(LoginRequest  $request)
     {
-        $user = Auth()->attempt(
-            [
-                'name' => $request->name,
-                'password' => $request->password
-            ]);
-        if (Auth()->check()) {
-            return response()->json(['token'=>Auth()->user()->generateToken()]);
+
+        if(Auth::attempt($request->only(['name','password']))) {
+            return response()->json(['token' => Auth()->user()->generateToken()]);
         }
-        return response()->json(['error'=>'اطلاعات کاربری اشتباه وارد شده است'],401);
+
+
+        return response()->json(['error' => 'اطلاعات کاربری اشتباه وارد شده است']);
     }
 
     public function logout()
